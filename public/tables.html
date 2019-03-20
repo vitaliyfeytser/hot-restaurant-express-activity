@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <!-- SAMPLE CARD -->
+    <!--    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                content.</p>
+            <a href="#" class="card-link">Seat Reservation</a><br>
+            <a href="#" class="card-link">Remove Reservation</a>
+        </div>
+    </div> -->
+
+    <br>
+    At tables.
+    <a href="./" class="btn btn-outline-primary btn-sm">Index</a>
+    <a href="./reserve" class="btn btn-outline-primary btn-sm">Reserve</a>
+    <br>
+    <br>
+
+    <div id="current-tables">
+        <H1>SEATED TABLES</H1>
+    </div>
+
+    <div id="waitlist-tables">
+        <H1>WAITLIST TABLES</H1>
+    </div>
+
+    <script>
+        // current tables
+        $.ajax({
+            url: '/api/tables',
+            success: function (result) {
+                console.log(result);
+
+                for (var i = 0; i < result.length; i++) {
+                    console.log(result[i].name);
+                    $('#current-tables').append(
+                        $('<br>'),
+                        $('<div>', {
+                            class: 'card',
+                            style: 'width: 18rem;'
+                        }).append(
+                            $('<div>', {
+                                class: 'card-body'
+                            }).append(
+                                $('<h6>', {
+                                    class: 'card-subtitle mb-2 text-muted',
+                                    text: 'Table Number: ' + (i + 1)
+                                }),
+                                $('<h5>', {
+                                    class: 'card-title',
+                                    text: result[i].name,
+                                }),
+                                $('<p>', {
+                                    class: 'card-text',
+                                    text: result[i].phoneNumber,
+                                }),
+                                $('<p>', {
+                                    class: 'card-text',
+                                    text: result[i].email,
+                                }),
+
+                            ),
+                        ))
+                    $('<br>')
+                }
+            }
+        });
+
+        // waitlist tables
+        $.ajax({
+            url: '/api/waitlist',
+            success: function (result) {
+                console.log(result);
+
+                for (var i = 0; i < result.length; i++) {
+                    console.log(result[i].name);
+                    $('#waitlist-tables').append(
+                        $('<br>'),
+                        $('<div>', {
+                            class: 'card',
+                            style: 'width: 18rem;'
+                        }).append(
+                            $('<div>', {
+                                class: 'card-body'
+                            }).append(
+                                $('<h6>', {
+                                    class: 'card-subtitle mb-2 text-muted',
+                                    text: 'Table Number: ' + (i + 1)
+                                }),
+                                $('<h5>', {
+                                    class: 'card-title',
+                                    text: result[i].name,
+                                }),
+                                $('<p>', {
+                                    class: 'card-text',
+                                    text: result[i].phoneNumber,
+                                }),
+                                $('<p>', {
+                                    class: 'card-text',
+                                    text: result[i].email,
+                                })
+
+                            ),
+                        ))
+                    $('<br>')
+                }
+            }
+        });
+    </script>
+
+
+</body>
+
+</html>
